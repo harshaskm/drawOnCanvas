@@ -51,27 +51,35 @@ public class Canvas {
         }
     }
 
-    public void drawHorizontalLineInCanvas(int firstXCoOrdinate, int firstYCoOrdinate, int secondXCoOrdinate, int secondYCoOrdinate){
-        if (firstYCoOrdinate == secondYCoOrdinate) {
-            for (int iterator = firstXCoOrdinate; iterator <= secondXCoOrdinate; iterator++) {
-                canvas[firstYCoOrdinate][iterator] = 'x';
+    public void drawHorizontalLineInCanvas(int firstXCoordinate, int firstYCoordinate, int secondXCoordinate, int secondYCoordinate){
+        if (firstYCoordinate == secondYCoordinate) {
+            for (int iterator = firstXCoordinate; iterator <= secondXCoordinate; iterator++) {
+                canvas[firstYCoordinate][iterator] = 'x';
             }
         }
     }
 
-    public void drawVerticalLineInCanvas(int firstXCoOrdinate, int firstYCoOrdinate, int secondXCoOrdinate, int secondYCoOrdinate){
-        if (firstXCoOrdinate == secondXCoOrdinate) {
-            for (int iterator = firstYCoOrdinate; iterator <= secondYCoOrdinate; iterator++) {
-                canvas[iterator][firstXCoOrdinate] = 'x';
+    public void drawVerticalLineInCanvas(int firstXCoordinate, int firstYCoordinate, int secondXCoordinate, int secondYCoordinate){
+        if (firstXCoordinate == secondXCoordinate) {
+            for (int iterator = firstYCoordinate; iterator <= secondYCoordinate; iterator++) {
+                canvas[iterator][firstXCoordinate] = 'x';
             }
         }
     }
 
-    public void createSmallBoxInTheCanvas(int firstXCoOrdinate, int firstYCoOrdinate, int secondXCoOrdinate, int secondYCoOrdinate) {
-        drawHorizontalLineInCanvas(firstXCoOrdinate, firstYCoOrdinate, secondXCoOrdinate, secondYCoOrdinate);
-        drawHorizontalLineInCanvas(firstXCoOrdinate, secondYCoOrdinate, secondXCoOrdinate, secondYCoOrdinate);
-        drawVerticalLineInCanvas(firstXCoOrdinate, firstYCoOrdinate, secondXCoOrdinate, secondYCoOrdinate);
-        drawVerticalLineInCanvas(secondXCoOrdinate, firstYCoOrdinate, secondXCoOrdinate, secondYCoOrdinate);
+    public void createSmallBoxInTheCanvas(int firstXCoordinate, int firstYCoordinate, int secondXCoordinate, int secondYCoordinate) {
+        drawHorizontalLineInCanvas(firstXCoordinate, firstYCoordinate, secondXCoordinate, secondYCoordinate);
+        drawHorizontalLineInCanvas(firstXCoordinate, secondYCoordinate, secondXCoordinate, secondYCoordinate);
+        drawVerticalLineInCanvas(firstXCoordinate, firstYCoordinate, secondXCoordinate, secondYCoordinate);
+        drawVerticalLineInCanvas(secondXCoordinate, firstYCoordinate, secondXCoordinate, secondYCoordinate);
+    }
+
+    public void bucketFill(int xCoordinate, int yCoordinate, char colour){
+        for(int iterator = xCoordinate; iterator < this.canvasWidthWithBorder; iterator++){
+            if (canvas[yCoordinate][iterator] != colour){
+                canvas[yCoordinate][iterator] = colour;
+            }
+        }
     }
 
     public String[] printCanvas(){
@@ -94,4 +102,5 @@ public class Canvas {
         }
         return builder.toString();
     }
+
 }

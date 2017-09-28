@@ -1,6 +1,8 @@
 package com;
 
 
+import sun.tools.java.Environment;
+
 public class Canvas {
     private int canvasWidthWithBorder;
     private int canvasHeightWithBorder;
@@ -49,26 +51,45 @@ public class Canvas {
         }
     }
 
-    public void drawHorizontalLineInCanvas(int firstXCoOrdinate, int firstyCoOrdinate, int secondXCoOrdinate, int secondYCoOrdinate){
+    public void drawHorizontalLineInCanvas(int firstXCoOrdinate, int firstYCoOrdinate, int secondXCoOrdinate, int secondYCoOrdinate){
         for (int iterator = firstXCoOrdinate; iterator <= secondXCoOrdinate; iterator++){
-            canvas[firstyCoOrdinate][iterator] = 'x';
+            canvas[firstYCoOrdinate][iterator] = 'x';
         }
+    }
+
+    public void drawVerticalLineInCanvas(int firstXCoOrdinate, int firstYCoOrdinate, int secondXCoOrdinate, int secondYCoOrdinate){
+        for (int iterator = firstYCoOrdinate; iterator <= secondYCoOrdinate; iterator++){
+            canvas[iterator][firstXCoOrdinate] = 'x';
+        }
+    }
+
+    public void createSmallBoxInTheCanvas(int firstXCoOrdinate, int firstYCoOrdinate, int secondXCoOrdinate, int secondYCoOrdinate) {
+        int lineLength = (secondXCoOrdinate - firstXCoOrdinate) + 1;
+        int verticalLength = (secondYCoOrdinate - firstYCoOrdinate);
+        drawHorizontalLineInCanvas(firstXCoOrdinate, firstYCoOrdinate, secondXCoOrdinate, secondYCoOrdinate);
+        drawHorizontalLineInCanvas(firstXCoOrdinate, secondYCoOrdinate, secondXCoOrdinate, secondYCoOrdinate);
+        drawVerticalLineInCanvas(firstXCoOrdinate, firstYCoOrdinate, secondXCoOrdinate, secondYCoOrdinate);
+        drawVerticalLineInCanvas(secondXCoOrdinate, firstYCoOrdinate, secondXCoOrdinate, secondYCoOrdinate);
     }
 
     public String[] printCanvas(){
         String[] canvasRows = new String[this.canvasHeightWithBorder];
-        String rowInCanvas = new String();
         int iterator = 0;
 
         for(char[] row : this.canvas) {
-            for (char cell : row) {
-                rowInCanvas += cell;
-            }
+            String rowInCanvas = String.copyValueOf(row);
 
             canvasRows[iterator] = rowInCanvas;
-            rowInCanvas = "";
             iterator += 1;
         }
         return canvasRows;
+    }
+
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        for (String line : printCanvas()) {
+            builder.append(line).append(System.lineSeparator());
+        }
+        return builder.toString();
     }
 }

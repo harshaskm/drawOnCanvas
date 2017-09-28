@@ -49,13 +49,18 @@ public class Canvas {
         }
     }
 
-    public static String[] toString(int canvasWidthWithoutBorder, int canvasHeightWithoutBorder){
-        Canvas canvas = new Canvas(canvasHeightWithoutBorder, canvasWidthWithoutBorder, ' ');
-        String[] canvasRows = new String[canvasHeightWithoutBorder + 2];
+    public void drawHorizontalLineInCanvas(int firstXCoOrdinate, int firstyCoOrdinate, int secondXCoOrdinate, int secondYCoOrdinate){
+        for (int iterator = firstXCoOrdinate; iterator <= secondXCoOrdinate; iterator++){
+            canvas[firstyCoOrdinate][iterator] = 'x';
+        }
+    }
+
+    public String[] printCanvas(){
+        String[] canvasRows = new String[this.canvasHeightWithBorder];
         String rowInCanvas = new String();
         int iterator = 0;
 
-        for(char[] row : canvas.canvas) {
+        for(char[] row : this.canvas) {
             for (char cell : row) {
                 rowInCanvas += cell;
             }

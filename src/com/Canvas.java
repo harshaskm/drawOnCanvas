@@ -1,5 +1,6 @@
 package com;
 
+
 public class Canvas {
     private int canvasWidthWithBorder;
     private int canvasHeightWithBorder;
@@ -48,14 +49,21 @@ public class Canvas {
         }
     }
 
-    public static void print(int canvasWidthWithoutBorder, int canvasHeightWithoutBorder){
+    public static String[] toString(int canvasWidthWithoutBorder, int canvasHeightWithoutBorder){
         Canvas canvas = new Canvas(canvasHeightWithoutBorder, canvasWidthWithoutBorder, ' ');
+        String[] canvasRows = new String[canvasHeightWithoutBorder + 2];
+        String rowInCanvas = new String();
+        int iterator = 0;
+
         for(char[] row : canvas.canvas) {
             for (char cell : row) {
-                System.out.print(cell);
+                rowInCanvas += cell;
             }
 
-            System.out.println();
+            canvasRows[iterator] = rowInCanvas;
+            rowInCanvas = "";
+            iterator += 1;
         }
+        return canvasRows;
     }
 }

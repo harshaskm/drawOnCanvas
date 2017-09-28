@@ -5,7 +5,10 @@ import org.junit.Test;
 public class TestCanvas {
     @Test
     public void testPrintCanvas() {
-        Canvas.print(5,3);
+        String[] coockedCanvas = Canvas.toString(5,3);
+        for (int iterator = 0; iterator < coockedCanvas.length; iterator++) {
+            System.out.println(coockedCanvas[iterator]);
+        }
 
         Assert.assertTrue(true);
     }

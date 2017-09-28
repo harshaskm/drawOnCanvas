@@ -52,20 +52,22 @@ public class Canvas {
     }
 
     public void drawHorizontalLineInCanvas(int firstXCoOrdinate, int firstYCoOrdinate, int secondXCoOrdinate, int secondYCoOrdinate){
-        for (int iterator = firstXCoOrdinate; iterator <= secondXCoOrdinate; iterator++){
-            canvas[firstYCoOrdinate][iterator] = 'x';
+        if (firstYCoOrdinate == secondYCoOrdinate) {
+            for (int iterator = firstXCoOrdinate; iterator <= secondXCoOrdinate; iterator++) {
+                canvas[firstYCoOrdinate][iterator] = 'x';
+            }
         }
     }
 
     public void drawVerticalLineInCanvas(int firstXCoOrdinate, int firstYCoOrdinate, int secondXCoOrdinate, int secondYCoOrdinate){
-        for (int iterator = firstYCoOrdinate; iterator <= secondYCoOrdinate; iterator++){
-            canvas[iterator][firstXCoOrdinate] = 'x';
+        if (firstXCoOrdinate == secondXCoOrdinate) {
+            for (int iterator = firstYCoOrdinate; iterator <= secondYCoOrdinate; iterator++) {
+                canvas[iterator][firstXCoOrdinate] = 'x';
+            }
         }
     }
 
     public void createSmallBoxInTheCanvas(int firstXCoOrdinate, int firstYCoOrdinate, int secondXCoOrdinate, int secondYCoOrdinate) {
-        int lineLength = (secondXCoOrdinate - firstXCoOrdinate) + 1;
-        int verticalLength = (secondYCoOrdinate - firstYCoOrdinate);
         drawHorizontalLineInCanvas(firstXCoOrdinate, firstYCoOrdinate, secondXCoOrdinate, secondYCoOrdinate);
         drawHorizontalLineInCanvas(firstXCoOrdinate, secondYCoOrdinate, secondXCoOrdinate, secondYCoOrdinate);
         drawVerticalLineInCanvas(firstXCoOrdinate, firstYCoOrdinate, secondXCoOrdinate, secondYCoOrdinate);

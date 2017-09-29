@@ -1,64 +1,44 @@
 package com.draw;
 
+
 public class Canvas {
-    private int canvasWidthWithBorder;
-    private int canvasHeightWithBorder;
-    private int headerLine;
-    private int footerLine;
-    private char symbol;
+    private int canvasWidth;
+    private int canvasHeight;
     private char[][] canvas;
 
-    public Canvas(int canvasHeightWithoutBorder, int canvasWidthWithoutBorder, char symbol) {
-        int horizontalBorderLines = 2;
-        int verticalBorderLines = 2;
-        this.canvasWidthWithBorder = canvasWidthWithoutBorder + horizontalBorderLines;
-        this.canvasHeightWithBorder = canvasHeightWithoutBorder + verticalBorderLines;
-        this.headerLine = 0;
-        this.footerLine = canvasHeightWithBorder - 1;
-        this.symbol = symbol;
-        this.canvas = new char[canvasHeightWithBorder][canvasWidthWithBorder];
+    public Canvas(int canvasHeight, int canvasWidth, char symbol) {
+        this.canvasWidth = canvasWidth;
+        this.canvasHeight = canvasHeight;
+        this.canvas = new char[this.canvasHeight][this.canvasWidth];
 
         this.initialize();
     }
 
     private void initialize(){
-        for (int height = 0; height < canvasHeightWithBorder; height++) {
-            for (int width = 0; width < canvasWidthWithBorder; width++) {
-                drawPerimeter(height, width);
+        for (int height = 0; height < canvasHeight; height++) {
+            for (int width = 0; width < canvasWidth; width++) {
                 fill(height, width);
             }
         }
     }
 
     private void fill(int height, int width) {
-        if ( (height > headerLine && height < footerLine) && (width > 0 && width < canvasWidthWithBorder-1)) {
+        if (width < canvasWidth) {
             canvas[height][width] = ' ';
-        }
-    }
-
-    private void drawPerimeter(int height, int width) {
-        if (height == headerLine || height == footerLine) {
-            if (symbol != 'x') symbol = '-';
-            canvas[height][width] = symbol;
-        }
-
-        if ((height > headerLine && height < footerLine) && (width == 0 || width == canvasWidthWithBorder-1 )) {
-            if (symbol != 'x') symbol = '|';
-            canvas[height][width] = symbol;
         }
     }
 
     public void drawHorizontalLine(int firstXCoordinate, int firstYCoordinate, int secondXCoordinate, int secondYCoordinate){
         if (firstYCoordinate == secondYCoordinate) {
             for (int i = firstXCoordinate; i <= secondXCoordinate; i++) {
-                canvas[firstYCoordinate][i] = 'x';
+                canvas[firstYCoordinate-1][i] = 'x';
             }
         }
     }
 
     public void drawVerticalLine(int firstXCoordinate, int firstYCoordinate, int secondXCoordinate, int secondYCoordinate){
         if (firstXCoordinate == secondXCoordinate) {
-            for (int i = firstYCoordinate; i <= secondYCoordinate; i++) {
+            for (int i = firstYCoordinate-1; i < secondYCoordinate; i++) {
                 canvas[i][firstXCoordinate] = 'x';
             }
         }
@@ -74,7 +54,7 @@ public class Canvas {
     }
 
     public void bucketFill(int xCoordinate, int yCoordinate, char colour){
-        for(int i = xCoordinate; i < this.canvasWidthWithBorder; i++){
+        for(int i = xCoordinate; i < this.canvasWidth; i++){
             if (canvas[yCoordinate][i] != colour){
                 canvas[yCoordinate][i] = colour;
             }
@@ -82,15 +62,27 @@ public class Canvas {
     }
 
     public String[] print(){
-        String[] canvasRows = new String[this.canvasHeightWithBorder];
+        String[] canvasRows = new String[this.canvasHeight +2];
+        char horizontalBorderChar = '-';
+        char verticalBorderChar = '|';
         int i = 0;
 
-        for(char[] row : this.canvas) {
-            String rowInCanvas = String.copyValueOf(row);
+        for (int i1 = 0; i1 < this.canvasWidth +2; i1++) {
+            if (i1 == 0) canvasRows[i] = String.valueOf(horizontalBorderChar);
+                    else canvasRows[i] += horizontalBorderChar;
+        }
+        i++;
 
+        for(char[] row : this.canvas) {
+            String rowInCanvas = verticalBorderChar + String.copyValueOf(row) + verticalBorderChar;
             canvasRows[i] = rowInCanvas;
             i += 1;
         }
+        for (int i1 = 0; i1 < this.canvasWidth +2; i1++) {
+            if (i1 == 0) canvasRows[i] = String.valueOf(horizontalBorderChar);
+            else canvasRows[i] += horizontalBorderChar;
+        }
+
         return canvasRows;
     }
 

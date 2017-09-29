@@ -8,7 +8,7 @@ public class Canvas {
     public static final char HORIZONTAL_BORDER_CHAR = '-';
     public static final char VERTICAL_BORDER_CHAR = '|';
 
-    public Canvas(int canvasHeight, int canvasWidth, char symbol) {
+    public Canvas(int canvasHeight, int canvasWidth) {
         this.canvasWidth = canvasWidth;
         this.canvasHeight = canvasHeight;
         this.canvas = new char[this.canvasHeight][this.canvasWidth];

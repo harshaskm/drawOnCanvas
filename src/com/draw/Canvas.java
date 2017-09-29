@@ -50,35 +50,48 @@ public class Canvas {
     }
 
     public String[] toRows(){
-        String[] canvasRows = new String[this.canvasHeight +2];
-        getTopHorizontalBorder(canvasRows, HORIZONTAL_BORDER_CHAR);
-        getCanvasRowsWithVerticalBorder(canvasRows, VERTICAL_BORDER_CHAR);
-        getBottomHorizontalBorder(canvasRows, HORIZONTAL_BORDER_CHAR);
+        String[] canvasRows;
+
+        canvasRows = getCanvasRowsWithVerticalBorder(VERTICAL_BORDER_CHAR);
+        canvasRows[0] = String.valueOf(getTopHorizontalBorder(HORIZONTAL_BORDER_CHAR));
+        canvasRows[canvasHeight+1] = getBottomHorizontalBorder(HORIZONTAL_BORDER_CHAR);
 
         return canvasRows;
     }
 
-    private void getTopHorizontalBorder(String[] canvasRows, char horizontalBorderChar) {
+    private String getTopHorizontalBorder(char horizontalBorderChar) {
+        String canvasRows = new String();
+
         for (int i1 = 0; i1 < this.canvasWidth +2; i1++) {
-            if (i1 == 0) canvasRows[0] = String.valueOf(horizontalBorderChar);
-            else canvasRows[0] += horizontalBorderChar;
+            if (i1 == 0) canvasRows = String.valueOf(horizontalBorderChar);
+            else canvasRows += horizontalBorderChar;
         }
+
+        return canvasRows;
     }
 
-    private void getCanvasRowsWithVerticalBorder(String[] canvasRows, char verticalBorderChar) {
+    private String[] getCanvasRowsWithVerticalBorder(char verticalBorderChar) {
         int i = 1;
+        String[] canvasRows = new String[this.canvasHeight +2];
+
         for(char[] row : this.canvas) {
             String rowInCanvas = verticalBorderChar + String.copyValueOf(row) + verticalBorderChar;
             canvasRows[i] = rowInCanvas;
             i += 1;
         }
+
+        return canvasRows;
     }
 
-    private void getBottomHorizontalBorder(String[] canvasRows, char horizontalBorderChar) {
+    private String getBottomHorizontalBorder(char horizontalBorderChar) {
+        String canvasRows = new String();
+
         for (int i1 = 0; i1 < this.canvasWidth +2; i1++) {
-            if (i1 == 0) canvasRows[canvasHeight+1] = String.valueOf(horizontalBorderChar);
-            else canvasRows[canvasHeight+1] += horizontalBorderChar;
+            if (i1 == 0) canvasRows = String.valueOf(horizontalBorderChar);
+            else canvasRows += horizontalBorderChar;
         }
+
+        return canvasRows;
     }
 
     public String toString() {
